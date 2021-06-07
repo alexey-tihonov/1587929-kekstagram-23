@@ -25,8 +25,6 @@ const POST_DESCRIPTION = 'Описание фотографии ';
 
 const POST_COUNT = 25;
 
-let commentId = 0;
-
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -39,29 +37,23 @@ function checkStringLength(string, length) {
 const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
 const getRandomCommentsCount = () => getRandomInt(1, 5);
 
-const createComment = () => {
-  commentId++;
-  return {
-    id: commentId,
-    avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
-    message: getRandomArrayElement(POST_MESSAGE),
-    name: getRandomArrayElement(POST_AUTHOR),
-  };
-};
+const createComment = (index) => ({
+  id: index + 1,
+  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomArrayElement(POST_MESSAGE),
+  name: getRandomArrayElement(POST_AUTHOR),
+});
 
-const createComments = () => new Array(getRandomCommentsCount()).fill(null).map(() => createComment());
+const createComments = () => new Array(getRandomCommentsCount()).fill(null).map((_, index) => createComment(index));
 
-const createPost = (index) => {
-  index++;
-  return {
-    id: index,
-    url: `photos/${index}.jpg`,
-    description: POST_DESCRIPTION + index,
-    likes: getRandomInt(15, 200),
-    comments: createComments(),
-  };
-};
+const createPost = (index) => ({
+  id: index + 1,
+  url: `photos/${index}.jpg`,
+  description: POST_DESCRIPTION + index,
+  likes: getRandomInt(15, 200),
+  comments: createComments(),
+});
 
-const posts = new Array(POST_COUNT).fill(null).map((element, index) => createPost(index));
+const posts = new Array(POST_COUNT).fill(null).map((_, index) => createPost(index));
 // eslint-disable-next-line no-console
-console.log(posts);
+window.console.log(posts);
