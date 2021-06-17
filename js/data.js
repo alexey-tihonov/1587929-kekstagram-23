@@ -47,6 +47,6 @@ const createPost = (index) => ({
   comments: createComments(),
 });
 
-const createPosts = () =>new Array(POST_COUNT).fill(null).map((_, index) => createPost(index));
+const createPosts = () => new Array(POST_COUNT).fill(null).map((_, index) => createPost(index));
 
 export {createPosts};
