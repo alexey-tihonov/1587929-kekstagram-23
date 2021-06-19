@@ -1,3 +1,5 @@
+import {keyboard} from './util.js';
+
 const initModalSocialComments = (template, comments) => {
   const listFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
@@ -14,7 +16,7 @@ const hideModalSocialCommentsCount = (element) => {
   element.querySelector('.comments-loader').classList.add('hidden');
 };
 
-const initModal = (element, picture) => {
+const createModal = (element, picture) => {
   const modalImg = element.querySelector('img');
   const modalSocialComments = element.querySelector('.social__comments');
   const socialCommentTemplate = modalSocialComments.querySelector('.social__comment');
@@ -29,33 +31,37 @@ const initModal = (element, picture) => {
   hideModalSocialCommentsCount(element);
 };
 
-const closeModal = function() {
-  this.element.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+const onDocumentKeydown = (evt) => {
+  // eslint-disable-next-line no-use-before-define
+  keyboard.isEsc(evt, modal.close());
 };
 
-const openModal = function(picture) {
-  initModal(this.element, picture);
+const onCloseButtonClick = (evt) => {
+  evt.preventDefault();
+  // eslint-disable-next-line no-use-before-define
+  modal.close();
+};
+
+const close = function() {
+  this.element.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  this.closeButton.removeEventListener('click', onCloseButtonClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+const open = function(picture) {
+  createModal(this.element, picture);
   this.element.classList.remove('hidden');
   document.body.classList.add('modal-open');
-
   this.closeButton = this.element.querySelector('.big-picture__cancel');
-  this.closeButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    this.closeModal();
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
-      this.closeModal();
-    }
-  });
+  this.closeButton.addEventListener('click', onCloseButtonClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const modal = {
   element: document.querySelector('.big-picture'),
-  openModal,
-  closeModal,
+  open,
+  close,
 };
 
 export {modal};
