@@ -1,7 +1,7 @@
+import {modal} from './modal.js';
+
 const renderPictures = (posts) => {
-  const pictureTemplate = document.querySelector('#picture')
-    .content
-    .querySelector('.picture');
+  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const pictureListElement = document.querySelector('.pictures');
   const listFragment = document.createDocumentFragment();
 
@@ -10,6 +10,9 @@ const renderPictures = (posts) => {
     pictureElement.querySelector('.picture__img').src = post.url;
     pictureElement.querySelector('.picture__comments').textContent = post.comments.length;
     pictureElement.querySelector('.picture__likes').textContent = post.likes;
+    pictureElement.addEventListener('click', () => {
+      modal.openModal(post);
+    });
     listFragment.appendChild(pictureElement);
   });
 
