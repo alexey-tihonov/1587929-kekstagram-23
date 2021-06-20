@@ -3,8 +3,10 @@ import {modal} from './modal.js';
 const addPictureClickHandler = (element, posts) => {
   element.addEventListener('click', (evt) => {
     evt.preventDefault();
-    const pictureIndex = evt.target.parentElement.dataset.index;
-    modal.open(posts[pictureIndex]);
+    if (evt.target.classList.contains('picture__img')) {
+      const pictureIndex = evt.target.parentElement.dataset.index;
+      modal.open(posts[pictureIndex]);
+    }
   });
 };
 
