@@ -1,11 +1,11 @@
-import {modal} from './modal.js';
+import {pictureModal} from './picture-modal.js';
 
 const addPictureClickHandler = (element, posts) => {
-  element.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    if (evt.target.classList.contains('picture__img')) {
-      const pictureIndex = evt.target.parentElement.dataset.index;
-      modal.open(posts[pictureIndex]);
+  element.addEventListener('click', (e) => {
+    if (e.target.classList.contains('picture__img')) {
+      e.preventDefault();
+      const pictureIndex = e.target.parentElement.dataset.index;
+      pictureModal.create(posts[pictureIndex]);
     }
   });
 };
