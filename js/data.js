@@ -28,7 +28,7 @@ const POST_DESCRIPTION = 'Описание фотографии ';
 const POST_COUNT = 25;
 
 const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
-const getRandomCommentsCount = () => getRandomInt(1, 5);
+const getRandomCommentsCount = () => getRandomInt(1, 10);
 
 const createComment = (index) => ({
   id: index + 1,
