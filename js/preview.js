@@ -25,18 +25,6 @@ const onEffectChange = (e) => {
   }
 };
 
-preview.renderEffectClass = function () {
-  return `effects__preview--${this.effect.type}`;
-};
-
-preview.setEffectClass = function (className) {
-  if (this.class) {
-    this.element.classList.remove(this.class);
-  }
-  this.class = className;
-  this.element.classList.add(className);
-};
-
 preview.createScale = function () {
   this.scale.add();
   this.scale.element.addEventListener('click', onScaleControlClick);
@@ -61,8 +49,23 @@ preview.createEffect = function () {
   this.effect.controls.addEventListener('change', onEffectChange);
 };
 
+preview.renderEffectClass = function () {
+  return `effects__preview--${this.effect.type}`;
+};
+
+preview.setEffectClass = function (className) {
+  this.resetEffectClass();
+  this.class = className;
+  this.element.classList.add(className);
+};
+
+preview.resetEffectClass = function () {
+  this.class && this.element.classList.remove(this.class);
+};
+
 preview.removeEffect = function () {
   this.effect.remove();
+  this.resetEffectClass();
   this.effect.controls.removeEventListener('change', onEffectChange);
 };
 
