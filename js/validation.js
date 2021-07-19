@@ -51,17 +51,25 @@ const validateHashtag = (hashtagInput) => {
   for (let i = 0; i < hashtags.length; i++) {
     for (const key in hashtagValidityChecks) {
       if (!hashtagValidityChecks[key].isValid(hashtags[i], hashtags)) {
+        hashtagInput.style.outline = '3px solid red';
         hashtagInput.setCustomValidity(messages.hashtag[key]);
         return;
       }
     }
   }
+  hashtagInput.style.outline = 'none';
   hashtagInput.setCustomValidity('');
 };
 
 const validateComment = (commentInput) => {
   const comment = commentInput.value;
-  commentInput.setCustomValidity((comment.split('').length > COMMENT_MAX_LENGTH) ? messages.comment.maxLength :'');
+  if (comment.split('').length > COMMENT_MAX_LENGTH) {
+    commentInput.style.outline = '3px solid red';
+    commentInput.setCustomValidity(messages.comment.maxLength);
+  } else {
+    commentInput.setCustomValidity('');
+    commentInput.style.outline = 'none';
+  }
 };
 
 const validateForm = (form) => {

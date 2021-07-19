@@ -1,6 +1,14 @@
-import {createPosts} from './data.js';
+import {getData} from './server.js';
 import {renderPictures} from './picture.js';
 import {addFileUploadHandler} from './file.js';
+import {message} from './message.js';
 
-renderPictures(createPosts());
+getData(
+  (posts) => {
+    renderPictures(posts);
+  },
+  (err) => {
+    message.render(false, err, 'Закрыть');
+  });
+
 addFileUploadHandler();
