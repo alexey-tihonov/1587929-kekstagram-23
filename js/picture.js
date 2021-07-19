@@ -10,10 +10,20 @@ const addPictureClickHandler = (element, posts) => {
   });
 };
 
+const removePictures = (сontainer) => {
+  const elements = сontainer.querySelectorAll('.picture');
+  elements.forEach((element) => {
+    сontainer.removeChild(element);
+  });
+};
+
 const renderPictures = (posts) => {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const pictureListElement = document.querySelector('.pictures');
   const listFragment = document.createDocumentFragment();
+
+  removePictures(pictureListElement);
+
   posts.forEach((post, index) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.dataset.index = index;
@@ -23,6 +33,7 @@ const renderPictures = (posts) => {
     listFragment.appendChild(pictureElement);
   });
 
+  //pictureListElement.innerHTML = '';
   pictureListElement.appendChild(listFragment);
   addPictureClickHandler(pictureListElement, posts);
 };
