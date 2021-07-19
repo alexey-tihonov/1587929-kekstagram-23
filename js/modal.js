@@ -2,7 +2,7 @@ import {keyboard} from './util.js';
 
 const modal = {};
 
-modal.init = function (element, target = false, callBack) {
+modal.init = function (element, target = false, callBack = () => {}) {
   const OnCloseEvent = () => callBack();
 
   const onDocumentKeydown = (e) => {
