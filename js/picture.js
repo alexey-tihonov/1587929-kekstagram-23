@@ -1,6 +1,6 @@
 import {pictureModal} from './picture-modal.js';
 
-const addPictureClickHandler = (element, posts) => {
+const onPicturesClick = (element, posts) => {
   element.addEventListener('click', (e) => {
     if (e.target.classList.contains('picture__img')) {
       e.preventDefault();
@@ -22,8 +22,6 @@ const renderPictures = (posts) => {
   const pictureListElement = document.querySelector('.pictures');
   const listFragment = document.createDocumentFragment();
 
-  removePictures(pictureListElement);
-
   posts.forEach((post, index) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.dataset.index = index;
@@ -33,9 +31,9 @@ const renderPictures = (posts) => {
     listFragment.appendChild(pictureElement);
   });
 
-  //pictureListElement.innerHTML = '';
+  removePictures(pictureListElement);
   pictureListElement.appendChild(listFragment);
-  addPictureClickHandler(pictureListElement, posts);
+  onPicturesClick(pictureListElement, posts);
 };
 
 export {renderPictures};

@@ -31,16 +31,17 @@ form.onSubmit = function () {
 
 form.onClose = () => {
   form.file.element.value = '';
+  form.hashtagInput.value = '';
+  form.commentInput.value = '';
   form.preview.remove();
   form.element.removeEventListener('submit', onSubmitForm);
 };
 
-form.open = function (file) {
+form.open = function (file, fileSrc) {
   this.file = file;
 
-  this.preview.create(form.element.querySelector('.img-upload__preview'));
+  this.preview.create(form.element.querySelector('.img-upload__preview'), fileSrc);
   openUploadFileModal(this.element, this.overlay, this.onClose);
-
   this.onSubmit();
 };
 

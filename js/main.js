@@ -1,6 +1,6 @@
 import {getData} from './server.js';
 import {renderPictures} from './picture.js';
-import {addFileUploadHandler} from './file.js';
+import {file} from './file.js';
 import {message} from './message.js';
 import {filter} from './filter.js';
 
@@ -13,4 +13,4 @@ getData(
     message.render(false, err, 'Закрыть');
   });
 
-addFileUploadHandler();
+file.onUpload();

@@ -3,6 +3,7 @@ import {effect} from './effect.js';
 
 const preview = {
   element: null,
+  img: null,
   scale: scale,
   effect: effect,
   class: false,
@@ -31,12 +32,12 @@ preview.createScale = function () {
 };
 
 preview.setScaleValue = function (value) {
-  this.element.style.transform = `scale(${value})`;
+  this.img.style.transform = `scale(${value})`;
 };
 
 preview.resetScale = function () {
   this.scale.setDefault();
-  this.element.style.transform = '';
+  this.img.style.transform = '';
 };
 
 preview.removeScale = function () {
@@ -69,8 +70,10 @@ preview.removeEffect = function () {
   this.effect.controls.removeEventListener('change', onEffectChange);
 };
 
-preview.create = function (element) {
+preview.create = function (element, imgSrc) {
   this.element = element;
+  this.img = element.querySelector('img');
+  this.img.src = imgSrc;
   this.createScale();
   this.createEffect();
 
